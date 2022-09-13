@@ -1,0 +1,39 @@
+{
+    "files.exclude": {
+        "env/": true,
+        ".mypy_cache/": true
+    },
+    "python.formatting.provider": "black",
+    "python.terminal.activateEnvironment": true,
+    "python.pipenvPath": "pipenv",
+    "python.linting.pylintEnabled": true,
+    "python.linting.mypyEnabled": true,
+    "python.linting.mypyArgs": [
+        "--follow-imports=silent",
+        "--ignore-missing-imports",
+        "--show-column-numbers",
+        "--no-pretty",
+        "--disallow-untyped-defs",
+        "--disallow-untyped-calls"
+    ],
+    "python.analysis.typeCheckingMode": "basic",
+    "python.sortImports.args": ["--settings-path=${workspaceFolder}"],
+    "[python]": {
+        "editor.formatOnPaste": false,
+        "editor.formatOnSave": true,
+        "editor.formatOnSaveMode": "file",
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        }
+    },
+    "runOnSave.statusMessageTimeout": 3000,
+    "runOnSave.commands": [
+        {
+            "match": ".*\\.py$",
+            "command": "poetry run autoflake -i --remove-all-unused-imports --remove-unused-variables ${file}",
+            "runIn": "backend", // backend, terminal or vscode. backend needs a globally installed autoflake.
+            "runningStatusMessage": "Removing unused imports and variables in ${fileBasename}",
+            "finishStatusMessage": "${fileBasename} cleaned. 🍰 ✨"
+        }
+    ]
+}
